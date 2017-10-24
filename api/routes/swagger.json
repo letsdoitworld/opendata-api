@@ -1,0 +1,436 @@
+{
+   "swagger": "2.0",
+   "info": {
+     "title": "Let's Do It Foundation Data Portal API",
+     "description": "<b>The API of the <a href='https://www.letsdoitworld.org/'>Let's Do It Foundation</a> Data Portal</b> allows to query and update the information of reports of illegal trash. The data is collected by several organizations. The information about these organizations can be retrieved using <b>/sources</b> endpoint. Retrieval of the data does not require registration. The allowed rate of the requests from the same origin may be limited. Methods allowing data insert and update require registration.",
+     "version": "1.0"
+   },
+   "produces": ["application/json"],
+   "servers": [
+    {
+      "url": "localhost:3000",
+      "description": "Local developer server"
+    }, 
+    {
+       "url": "opendata.letsdoitworld.org",
+       "description": "Production server"
+    }
+  ],
+   "basePath": "/api",
+   "paths": {
+    "/sources": {
+       "get": {
+         "operationId": "getReportSources",
+         "tags": ["Trash report sources"],
+         "description": "Get the list of trash report sources.",
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/sources"
+             }
+           }
+         }
+       }
+     },
+     "/reports": {
+       "get": {
+         "operationId": "getReports",
+         "tags": ["Trash reports"],
+         "description": "Retrieve trash reports optionally using different filters.",
+         "parameters": [
+           {
+             "name": "country",
+             "in": "query",
+             "description": "Country to be queried.",
+             "type": "array",
+             "uniqueItems": true,
+             "collectionFormat": "multi",
+             "items": {
+               "type": "string"
+             }
+           },
+           {
+             "name": "source",
+             "in": "query",
+             "description": "Source of the report. You can get the list of available sources from /sources query response.",
+             "type": "array",
+             "uniqueItems": true,
+              "collectionFormat": "multi",
+              "items": {
+                "type": "string"
+              }
+           },
+           {
+             "name": "pageSize",
+             "in": "query",
+             "description": "Size of the page. Default is 10. Maximum page size is 1000.",
+             "type": "integer",
+             "format": "int32",
+             "maximum": 1
+           },
+           {
+             "name": "offset",
+             "in": "query",
+             "description": "Offset of data. Default is 0.",
+             "type": "integer",
+             "format": "int32",
+             "maximum": 1
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/reports"
+             }
+           }
+         }
+       },
+       "post": {
+         "operationId": "postReport",
+         "tags": ["Trash reports"],
+         "description": "Create new trash report to platform.",
+         "parameters": [
+           {
+             "name": "body",
+             "in": "body",
+             "description": "New trash report data.",
+             "required": true,
+             "schema": {
+               "$ref": "#/definitions/report"
+             }
+           }
+         ],
+         "responses": {
+            "200": {
+              "$ref": "#/responses/updateOK"
+            },
+            "401": {
+              "$ref": "#/responses/401"
+            }
+         }
+       }
+     },
+     "/reports/{platformId}" : {
+      "put": {
+        "operationId": "updateReportByPlatformId",
+        "tags": ["Trash reports"],
+        "description": "Update a trash report based on identifier from the platform.",
+        "parameters": [
+            {
+              "name": "platformId",
+              "in": "path",
+              "description": "Report id from the platform.",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "New report status.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/reportStatus"
+              }
+            }
+        ],
+        "responses": {
+          "200": {
+             "$ref": "#/responses/updateOK"
+          },
+          "401": {
+            "$ref": "#/responses/401"
+          }
+        }
+      }
+    },
+    "/reports/{type}/{id}": {
+      "put": {
+        "operationId": "updateReportBySourceId",
+        "tags": ["Trash reports"],
+        "description": "Update a trash report based on unique identifier from source system.",
+        "parameters": [
+            {
+              "name": "type",
+              "in": "path",
+              "description": "Report source. You can get the list of available sources from /sources query response.",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Report identifier used in source system.",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "New report status.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/reportStatus"
+              }
+            }
+        ],
+        "responses": {
+           "200": {
+             "$ref": "#/responses/updateOK"
+           },
+           "401": {
+             "$ref": "#/responses/401"
+           }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "operationId": "postToken",
+        "tags": ["Authentication"],
+        "description": "Retrieve the authentication token. Passing the token using bearer authentication allows to create new reports and update the report status. Issued token in valid for 6h.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Authentication credentials. Username and password.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/credentials"
+            }
+          }
+        ],
+        "responses": {
+           "200": {
+             "$ref": "#/responses/token"
+           },
+           "401": {
+            "$ref": "#/responses/401"
+           }
+        }        
+      }
+    }    
+   },
+   "responses": {
+      "401": {
+        "description": "Authentication failed. Either username or password is incorrect.",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "desctiption": "Description of the operation result"
+            }
+          }
+        }
+      },
+      "token": {
+        "description": "Authorization token",
+        "schema": {
+          "type": "string",
+          "description": "Authentication token"
+        }
+      },
+      "updateOK": {
+        "description": "OK",
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/status"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "report": {
+                  "$ref": "#/definitions/report"
+                }
+              }
+            }
+          ]
+        }
+      }
+   },
+   "definitions": {
+    "report": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "description": "Unique report identifier (id) in platform. It is not guaranteed that the identifier will be valid forever."
+            },
+            "source": {
+              "type": "string",
+              "description": "Report source identifier - the codename of the system from where the report has been imported."
+            },
+            "country_code": {
+              "type": "string",
+              "description": "2-letter ISO code of the country. If missing the report is not from any country."
+            },
+            "country": {
+              "type": "string",
+              "description": "Name of the country of report. If missing, the report is not from any country."
+            }
+          }
+        },
+        {
+           "$ref": "#/definitions/reportDate"
+        },
+        {
+          "$ref": "#/definitions/reportCoords"
+        },
+        {
+          "$ref": "#/definitions/reportStatus"
+        }
+        ]
+    },     
+    "reports": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/status"
+          },
+          {
+            "type": "object",
+            "properties" : {
+              "reports": {
+               "type": "array",
+               "items": {
+                 "$ref": "#/definitions/report"
+               }
+             }
+           }
+         }
+       ]
+     },
+    "source": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the report source organization."
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to organization webpage."
+        },
+        "type": {
+          "type": "string",
+          "description": "Codename of the report source."
+        },
+        "reports": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of reports from this source."
+        },
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last data loading from this source."
+        }
+      }
+    },
+    "sources": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/status"
+          },
+          {
+            "type": "object",
+            "properties" : {
+              "sources": {
+               "type": "array",
+               "items": {
+                 "$ref": "#/definitions/source"
+               }
+             }
+           }
+         }
+       ]
+    },
+    "credentials": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Registered username."
+        },
+        "password": {
+          "type": "string",
+          "description": "Password for the user."
+        }
+      }
+    },
+    "reportWrite": {
+      "allOf": [
+         {
+           "type": "object",
+           "properties": {
+             "source": {
+               "type": "string",
+               "description": "Name of the source. Source can not be created via API."
+             },
+             "id": {
+                "type": "string",
+                "description": "Source specific unique identifier for the report."
+             }
+           }
+         },
+         {
+            "$ref": "#/definitions/reportDate"
+         },
+         {
+            "$ref": "#/definitions/reportCoords"
+         },
+         {
+            "$ref": "#/definitions/reportStatus"
+         }
+      ]
+    },
+    "reportStatus": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the trash report."
+        }
+      }
+    },
+    "reportCoords": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "format": "double",
+          "description": "Latitude of the trash report. In WGS84 coordinates."
+        },
+        "long": {
+          "type": "number",
+          "format": "double",
+          "description": "Longitude of the trash report. In WGS84 coordinates."
+        }
+      }
+    },
+    "reportDate": {
+      "type": "object",
+      "properties": {
+        "ts": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of reporting."
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the operation"
+        }
+      }
+    } 
+  }
+}

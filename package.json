@@ -1,0 +1,43 @@
+{
+  "name": "trashapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "start-dev": "nodemon ./app.js",
+    "start-prod": "pm2 start app.js -i 4",
+    "stop-prod": "pm2 stop all",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "pm2": "^2.6.1",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "cors": "^2.8.4",
+    "csv-parse": "^1.2.1",
+    "datejs": "^1.0.0-rc3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-brute": "^1.0.1",
+    "express-brute-pg": "^1.0.2",
+    "express-jwt": "^5.3.0",
+    "express-promise-router": "^2.0.0",
+    "express-validation": "^1.0.2",
+    "helmet": "^3.8.1",
+    "joi": "^10.6.0",
+    "jsonwebtoken": "^7.4.1",
+    "node-cache": "^4.1.1",
+    "pg": "^7.3.0",
+    "swagger-ui-express": "^2.0.4",
+    "to-boolean": "^1.0.0",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
+  }
+}
