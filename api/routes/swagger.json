@@ -220,7 +220,7 @@
           "properties": {
             "status": {
               "type": "string",
-              "desctiption": "Description of the operation result"
+              "description": "Description of the operation result"
             }
           }
         }
