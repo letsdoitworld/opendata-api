@@ -2,11 +2,8 @@
 /*global describe*/
 /*global it*/
 /*eslint no-unused-vars: "off"*/
-var chai = require("chai");
-var should = require('chai').should();
 var expect = require("chai").expect;
-var assert = require('assert');
-var trashoutConverter = require("../reportImporter/TrashoutConverter");
+var trashoutConverter = require("../reportImporter/trashoutConverter");
 const reportsExample = [{
     "id": 125,
     "activityId": 182,
@@ -50,14 +47,13 @@ describe("TrashoutConverter", function () {
         let reportsStr=JSON.stringify(reportsExample);
         let reports=JSON.parse(reportsStr);
 
-        let convertedReports = trashoutConverter.convertReports(reports, "Trashout");
+        let convertedReports = trashoutConverter.convertListReports(reports, "Trashout");
 
         expect(reports.length).to.equal(2);
         expect(convertedReports.length).to.equal(1);
         expect(convertedReports[0].source_id).to.equal(125);
         expect(convertedReports[0].lat).to.equal("50.0989330234");
         expect(convertedReports[0].long).to.equal("14.213634599");
-        convertedReports[0].ts.should.be.instanceof(Date);
         expect(convertedReports[0].country).to.equal("Czechia");
         expect(convertedReports[0].admin_area).to.equal("Středočeský kraj");
         expect(convertedReports[0].admin_sub_area).to.equal("Praha-západ");
@@ -76,7 +72,7 @@ describe("TrashoutConverter", function () {
         expect(convertedReports[0].rubber).to.equal(false);
         expect(convertedReports[0].other).to.equal(false);
         expect(convertedReports[0].created_by).to.equal("Importer");
-        expect(convertedReports[0].created_at).to.equal(Date(reports.created));
+        expect(convertedReports[0].created_at).to.equal(reports[0].created);
 
     });
 });

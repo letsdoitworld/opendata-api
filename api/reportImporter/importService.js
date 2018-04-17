@@ -1,6 +1,5 @@
 var request = require('request');
-var async = require("async");
-const db = require('../db');
+var reportDao = require("../reportImporter/reportDao");
 /**module.exports.importReportsLatest = async.forever(
     function (token) {
         var requestLoop = setInterval(function () {
@@ -28,8 +27,8 @@ const db = require('../db');
         console.error(err);
     }
 );**/
-module.exports.importReportsAll = function (serviceUrl, reportsType, token, convertReports) {
-    request({
+module.exports.importReportsAll = async (serviceUrl, reportsType, token, converter)=> {
+    await request({
         headers: {
             'x-api-key': token,
         },
@@ -39,12 +38,13 @@ module.exports.importReportsAll = function (serviceUrl, reportsType, token, conv
         timeout: 10000,
         followRedirect: true,
         maxRedirects: 10
-    }, function (error, response) {
+    }, async (error, response)=> {
         if (!error && response.statusCode == 200) {
-            console.log('sucess!');
-            var reportsStr=JSON.stringify(res.body);
-            var parsedReports=JSON.parse(parsed);
-            storeReports(parsedReports, reportsType, convertReports);
+            console.log('sucessfully connected to service');
+            var reportsStr=JSON.stringify(response.body);
+            var parsedReports=JSON.parse(reportsStr);
+            await reportDao.storeReports(parsedReports, reportsType, converter);
+            console.log('reports sucessfully updated');
         } else {
             console.log('error' + response.statusCode);
         }
