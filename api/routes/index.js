@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const reports = require('./reports');
 const login = require('./login');
 const sources = require('./sources');
+const countries = require('./countries');
 const logger = require('../logger');
 
 const swaggerDocument = require('./swagger.json');
@@ -22,6 +23,7 @@ module.exports = (app) => {
           '/api/token',
           {url: '/api/reports', methods: ['GET']},
           {url: '/api/sources', methods: ['GET']},
+          {url: '/api/countries', methods: ['GET']},
           {url: /\/api(\/)?|\//, methods:['GET']}
       ]
     }));
@@ -31,6 +33,7 @@ module.exports = (app) => {
   app.use('/api/token'/*, brute.prevent*/, login);
   app.use('/api/reports'/*, brute.prevent*/, reports);
   app.use('/api/sources'/*, brute.prevent*/, sources);
+  app.use('/api/countries'/*, brute.prevent*/, countries);
 
   app.get(/\/api(\/)?|\// /*, brute.prevent*/, function (req, res, next) {
     res.redirect('/api/doc/');
