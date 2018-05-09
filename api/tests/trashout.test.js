@@ -25,9 +25,9 @@ describe('Connector with Trashout API', function () {
                     return done(err);
                 }
                 res.body.should.be.instanceof(Array).and.all.have.property('size');
-                var parsed=JSON.stringify(res.body);
-                var parsedO=JSON.parse(parsed);
-                console.log('sucess!'+(parsedO[1].size));
+                var parsedString=JSON.stringify(res.body);
+                var parsedReports=JSON.parse(parsedString);
+                console.log('sucess!'+(parsedReports[1].size));
                 done();
             });
     });
