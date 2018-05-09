@@ -11,8 +11,8 @@ module.exports.convertReport = function (report, reportType) {
         admin_area: ((report.gps.area!==null)?((report.gps.area.aa1!==null)?report.gps.area.aa1:null):null),
         admin_sub_area: ((report.gps.area!==null)?((report.gps.area.aa2!==null)?report.gps.area.aa2:null):null),
         locality: ((report.gps.area!==null)?((report.gps.area.locality!==null)?report.gps.area.locality:null):null),
-        status: (((report.status==='cleaned')||(report.status === 'confirmed'))?report.status:"reported"),
-        household: ((report.types!==null)?(report.types.indexOf("someString") > -1):false),
+        status: (((report.status==='cleaned')||(report.status === 'confirmed'))?report.status.toUpperCase():"REPORTED"),
+        household: ((report.types!==null)?(report.types.indexOf("domestic") > -1):false),
         construction: ((report.types!==null)?(report.types.indexOf("construction") > -1):false),
         hazardous: ((report.types!==null)?(report.types.indexOf("dangerous") > -1):false),
         bulky: ((report.types!==null)?((report.size === 'large') && ((report.types.indexOf("automotive") > -1)

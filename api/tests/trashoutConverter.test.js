@@ -58,8 +58,8 @@ describe("TrashoutConverter", function () {
         expect(convertedReports[0].admin_area).to.equal("Středočeský kraj");
         expect(convertedReports[0].admin_sub_area).to.equal("Praha-západ");
         expect(convertedReports[0].locality).to.equal("Jeneč");
-        expect(convertedReports[0].status).to.equal("reported");
-        expect(convertedReports[0].household).to.equal(false);
+        expect(convertedReports[0].status).to.equal("REPORTED");
+        expect(convertedReports[0].household).to.equal(true);
         expect(convertedReports[0].construction).to.equal(true);
         expect(convertedReports[0].hazardous).to.equal(false);
         expect(convertedReports[0].bulky).to.equal(false);
