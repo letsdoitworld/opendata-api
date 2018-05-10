@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 
 const reports = require('./reports');
+const reportsbycountry = require('./reportsbycountry');
+const trashpoint = require('./trashpoint');
 const login = require('./login');
 const sources = require('./sources');
 const countries = require('./countries');
@@ -24,6 +26,8 @@ module.exports = (app) => {
           {url: '/api/reports', methods: ['GET']},
           {url: '/api/sources', methods: ['GET']},
           {url: '/api/countries', methods: ['GET']},
+          {url: '/api/reportsbycountry', methods: ['GET']},
+          {url: '/api/trashpoint', methods: ['GET']},
           {url: /\/api(\/)?|\//, methods:['GET']}
       ]
     }));
@@ -34,6 +38,8 @@ module.exports = (app) => {
   app.use('/api/reports'/*, brute.prevent*/, reports);
   app.use('/api/sources'/*, brute.prevent*/, sources);
   app.use('/api/countries'/*, brute.prevent*/, countries);
+  app.use('/api/reportsbycountry', reportsbycountry);
+  app.use('/api/trashpoint', trashpoint);
 
   app.get(/\/api(\/)?|\// /*, brute.prevent*/, function (req, res, next) {
     res.redirect('/api/doc/');
