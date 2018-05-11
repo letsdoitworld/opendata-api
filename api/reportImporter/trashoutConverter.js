@@ -1,11 +1,12 @@
 var dateFormat = require("dateFormat");
 module.exports.convertReport = function (report, reportType) {
+    let importDate=dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh")
     let convertedReport = {
         type: reportType,
         lat: report.gps.lat,
         long: report.gps.long,
         //ts: new Date("%Y-%m-%d %H:%M:%S +Z"),
-        ts: dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh"),
+        ts_imported: importDate,
         source_id: report.id,
         country: ((report.gps.area!==null)?((report.gps.area.country!==null)?report.gps.area.country:null):null),
         admin_area: ((report.gps.area!==null)?((report.gps.area.aa1!==null)?report.gps.area.aa1:null):null),
@@ -27,9 +28,9 @@ module.exports.convertReport = function (report, reportType) {
         other: ((report.types!==null)?((report.types.indexOf("household") > -1) || (report.types.indexOf("electronic") > -1)
             || (report.types.indexOf("automotive") > -1) || (report.types.indexOf("liquid") > -1)):false),
         created_at: report.created,
-        created_by: "Importer"
+        created_by: "Importer",
+        last_updated: importDate
     };
-
     return convertedReport;
 };
 module.exports.convertListReports = function (reports, reportType) {

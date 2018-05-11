@@ -1,0 +1,2 @@
+ALTER TABLE reports RENAME COLUMN ts TO ts_imported;
+ALTER TABLE reports ADD COLUMN last_updated TIMESTAMP WITH TIME ZONE;
