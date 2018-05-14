@@ -1,4 +1,4 @@
-var dateFormat = require("dateFormat");
+var dateFormat = require("dateformat");
 module.exports.convertReport = function (report, reportType) {
     let importDate=dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh")
     let convertedReport = {

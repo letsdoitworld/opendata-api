@@ -1,7 +1,7 @@
 'use strict';
 const Router = require('express-promise-router');
 const db = require('../db');
-var dateFormat = require("dateFormat");
+var dateFormat = require("dateformat");
 
 const router = new Router({mergeParams: true});
 

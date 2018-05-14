@@ -1,6 +1,6 @@
 require('dotenv').config();
 const db = require('../db');
-var dateFormat = require("dateFormat");
+var dateFormat = require("dateformat");
 
 module.exports.storeReports = async (reports, reportsType, reportsConverter) => {
     //Check if report exists in db
