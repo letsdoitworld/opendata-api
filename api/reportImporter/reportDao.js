@@ -1,6 +1,6 @@
 require('dotenv').config();
 const db = require('../db');
-var dateFormat = require("dateFormat");
+var dateformat = require("dateformat");
 
 module.exports.storeReports = async (reports, reportsType, reportsConverter) => {
     //Check if report exists in db
@@ -15,9 +15,9 @@ module.exports.storeReports = async (reports, reportsType, reportsConverter) => 
         for (let i = 0; i < reports.length; i++) {
             var found = rows.find(o => o.source_id == reports[i].id);
             if (found != null) {
-                if (reports[i].status!==found.status) {
-                    let convertedReport = reportsConverter.convertReport(reports[i], reportsType);
-                    let dateUpdated=dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh");
+                let convertedReport = reportsConverter.convertReport(reports[i], reportsType);
+                if (convertedReport.status!=found.status) {
+                    let dateUpdated=dateformat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh");
                     let paramsUpd = [convertedReport.status, convertedReport.source_id, reportsType, dateUpdated];
                     const qryUpd = 'UPDATE reports set status = $1, last_updated = $4 where source_id = $2 and type=$3 ' + upsert_returning;
                     await db.query(qryUpd, paramsUpd);

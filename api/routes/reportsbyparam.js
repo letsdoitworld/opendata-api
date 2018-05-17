@@ -1,7 +1,7 @@
 'use strict';
 const Router = require('express-promise-router');
 const db = require('../db');
-var dateFormat = require("dateFormat");
+var dateformat = require("dateformat");
 
 const router = new Router({mergeParams: true});
 
@@ -57,7 +57,7 @@ var convertDate = (dateString) => {
     var year =dateString.substring(0, 4);
     var month =dateString.substring(4, 6);
     var day =dateString.substring(6, 8);
-    var mydate = dateFormat(new Date(Date.UTC(parseInt(year), parseInt(month)-1, parseInt(day),0,0,0)),"yyyy-mm-dd'T'HH:MM:ss'Z'hh");
+    var mydate = dateformat(new Date(Date.UTC(parseInt(year), parseInt(month)-1, parseInt(day),0,0,0)),"yyyy-mm-dd'T'HH:MM:ss'Z'hh");
 
     return mydate;
 };

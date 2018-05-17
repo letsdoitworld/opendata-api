@@ -1,6 +1,6 @@
-var dateFormat = require("dateFormat");
+var dateformat = require("dateformat");
 module.exports.convertReport = function (report, reportType) {
-    let importDate=dateFormat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh")
+    let importDate=dateformat(new Date(), "yyyy-mm-dd'T'HH:MM:ss'Z'hh");
     let convertedReport = {
         type: reportType,
         lat: report.gps.lat,
