@@ -13,4 +13,13 @@ updateReports = async ()=> {
         throw error;
     }
 };
-updateReports();
+updateReportsDaily = async ()=> {
+    try {
+        await importingService.importReportsDaily(trashoutServiceUrl, 'Trashout',
+            trashoutToken, trashoutConverter, process.env.TRASHOUT_REQ_DELAY);
+    } catch (error) {
+        console.log('error' + error);
+        throw error;
+    }
+};
+updateReportsDaily();

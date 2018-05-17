@@ -25,7 +25,6 @@ describe("Trashout db connector", function () {
         expect(reports.length).to.equal(2);
         const existingQnt =await db.query(qryCount, null);
         const saving=await reportDao.storeReports(reports, "Trashout",trashoutConverter);
-
         existingQntAfterSave =await db.query(qryCount, null);
 
         expect(parseInt(existingQntAfterSave.rows[0].count)).to.equal(parseInt(existingQnt.rows[0].count)+1);

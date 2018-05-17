@@ -1,32 +1,8 @@
 var request = require('request');
 var reportDao = require("../reportImporter/reportDao");
-/**module.exports.importReportsLatest = async.forever(
-    function (token) {
-        var requestLoop = setInterval(function () {
-            request({
-                headers: {
-                    'x-api-key': token,
-                },
-                //url: process.env.TRASHOUT_URL,
-                url: "https://api.trashout.ngo/v1/trash/" +
-                "?attributesNeeded=id,gpsFull,created,types,size,note,userInfo,url,status&limit=10000000000000",
-                method: "GET",
-                timeout: 10000,
-                followRedirect: true,
-                maxRedirects: 10
-            }, function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    console.log('sucess!' + body.toString());
-                } else {
-                    console.log('error' + response.statusCode);
-                }
-            });
-        }, 5000);
-    },
-    function (err) {
-        console.error(err);
-    }
-);**/
+var async = require("async");
+var CronJob = require('cron').CronJob;
+
 module.exports.importReportsAll = async (serviceUrl, reportsType, token, converter)=> {
     await request({
         headers: {
@@ -50,3 +26,21 @@ module.exports.importReportsAll = async (serviceUrl, reportsType, token, convert
         }
     });
 };
+module.exports.importReportsDaily = async (serviceUrl, reportsType, token, converter, cronPattern)=> {
+    new CronJob(cronPattern, function() {
+            try {
+                module.exports.importReportsAll(serviceUrl, reportsType, token, converter).then(() => {
+
+                    console.log('daily reports update started');
+                });
+
+            } catch (error) {
+                console.log('error' + error);
+                throw error;
+            };
+        }, function () {
+            console.log('daily reports update finished');
+        },
+        true, /* Start the job right now */
+        'Europe/London' /* Time zone of this job. */
+)};
