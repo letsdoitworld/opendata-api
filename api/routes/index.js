@@ -9,6 +9,7 @@ const trashpoint = require('./trashpoint');
 const login = require('./login');
 const sources = require('./sources');
 const countries = require('./countries');
+const countryresource= require('./countryresource');
 const logger = require('../logger');
 
 const swaggerDocument = require('./swagger.json');
@@ -20,13 +21,14 @@ const cors = require('cors');
 module.exports = (app) => {
   app.use(cors());
   app.use(bodyParser.json());
-  app.use(express_jwt({secret: process.env.JWT_SECRET}).unless({ 
-      path: [ 
-          /doc/, 
+  app.use(express_jwt({secret: process.env.JWT_SECRET}).unless({
+      path: [
+          /doc/,
           '/api/token',
           {url: '/api/reports', methods: ['GET']},
           {url: '/api/sources', methods: ['GET']},
           {url: '/api/countries', methods: ['GET']},
+          {url: '/api/countryresource', methods: ['GET']},
           {url: '/api/reportsbycountry', methods: ['GET']},
           {url: '/api/reportsbyparam', methods: ['GET']},
           {url: '/api/trashpoint', methods: ['GET']},
@@ -40,6 +42,7 @@ module.exports = (app) => {
   app.use('/api/reports'/*, brute.prevent*/, reports);
   app.use('/api/sources'/*, brute.prevent*/, sources);
   app.use('/api/countries'/*, brute.prevent*/, countries);
+  app.use('/api/countryresource', countryresource);
   app.use('/api/reportsbycountry', reportsbycountry);
   app.use('/api/reportsbyparam', reportsbyparam);
   app.use('/api/trashpoint', trashpoint);
