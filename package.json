@@ -8,7 +8,8 @@
     "start-dev": "nodemon ./app.js",
     "start-prod": "pm2 start app.js -i 4",
     "stop-prod": "pm2 stop all",
-    "test": "find ./tests -name '*.test.js' | xargs mocha -R spec --timeout 20000"
+    "test": "find ./tests -name '*.test.js' | xargs mocha -R spec --timeout 20000",
+    "eslint": "eslint api/**/*.js"
   },
   "author": "",
   "license": "ISC",
