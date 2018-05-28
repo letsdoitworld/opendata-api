@@ -6,8 +6,8 @@ var expect = require("chai").expect;
 var countryDao = require("../reportImporter/countryDao");
 
 const qryRuTotalreports = "SELECT COUNT (*) FROM reports where country_code='RU'";
-const qryRuSetZeroReports = "UPDATE country_population set reportsQnt = 0 WHERE country_code= 'RU'";
-const qryRUcountryReports = "SELECT reportsQnt FROM country_population where country_code='RU'";
+const qryRuSetZeroReports = "UPDATE country_population set reports_qnt = 0 WHERE country_code= 'RU'";
+const qryRUcountryReports = "SELECT reports_qnt FROM country_population where country_code='RU'";
 
 
 describe("Country data updating", function () {
@@ -16,11 +16,11 @@ describe("Country data updating", function () {
         await db.query(qryRuSetZeroReports, null);
 
         const  totalCountryReportsBefore=await db.query(qryRUcountryReports, null);
-        expect(parseInt(totalReportsActual.rows[0].count)).to.not.equal(totalCountryReportsBefore.rows[0].reportsqnt);
+        expect(parseInt(totalReportsActual.rows[0].count)).to.not.equal(totalCountryReportsBefore.rows[0].reports_qnt);
         const result = await countryDao.storeCountryStatistics();
         const totalCountryReportsAfter =await db.query(qryRUcountryReports, null);
 
-        expect(parseInt(totalReportsActual.rows[0].count)).to.equal(totalCountryReportsAfter.rows[0].reportsqnt);
+        expect(parseInt(totalReportsActual.rows[0].count)).to.equal(totalCountryReportsAfter.rows[0].reports_qnt);
         await db.end();
     }).timeout(40000);
 });

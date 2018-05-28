@@ -9,7 +9,7 @@ module.exports.storeCountryStatistics = async () => {
         const {rows} = await db.query(qry);
         for (let i = 0; i < rows.length; i++) {
             let paramsUpd= [rows[i].country_code];
-            const qryUpd = 'UPDATE country_population set reportsQnt = (SELECT COUNT (*) FROM reports WHERE country_code= $1) WHERE country_code= $1';
+            const qryUpd = 'UPDATE country_population set reports_qnt = (SELECT COUNT (*) FROM reports WHERE country_code= $1) WHERE country_code= $1';
             await db.query(qryUpd, paramsUpd);
             console.log('country with code='+rows[i].country_code+' updated total reports number');
         }
