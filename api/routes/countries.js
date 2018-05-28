@@ -7,7 +7,7 @@ const router = new Router();
 router.get('/', async (req, res) => {
   const query = 'select * from country_population order by country_code;'
   const {rows} = await db.query(query);
-  const queryResources = 'select * from country_resource;'
+  const queryResources = 'select country_code, resourcename, url from country_resource LEFT JOIN resource ON country_resource.resourcename = resource.name;'
   const resourcesResult = await db.query(queryResources);
   res.send({
     'status': 'SUCCESS',
@@ -15,11 +15,12 @@ router.get('/', async (req, res) => {
       return {
         "country_code": v["country_code"],
         "population": v["population"],
-        "reports_number": v["reportsqnt"],
-        "tpr": v["reportsqnt"]/(v["population"]/10000),
+        "reports_number": v["reports_qnt"],
+        "tpr": v["reports_qnt"]/(v["population"]/10000),
         "resources": resourcesResult.rows.filter(o => o.country_code == v["country_code"]).map(n => {
           return  {
-            "resourceName": n["resourcename"]};
+            "resourceName": n["resourcename"],
+            "link" : n["url"]};
         })
       };
     })

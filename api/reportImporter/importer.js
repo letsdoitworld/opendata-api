@@ -4,6 +4,8 @@ var trashoutServiceUrl = 'https://api.trashout.ngo/v1/trash/?attributesNeeded=id
     'note,userInfo,url,status&limit=10000000000000';
 var trashoutConverter = require("../reportImporter/TrashoutConverter");
 var importingService = require("../reportImporter/importService");
+var countryresourceDao = require("../reportImporter/countryresourceDao");
+var countryDao = require("../reportImporter/countryDao");
 
 updateReports = async ()=> {
     try {
@@ -22,4 +24,26 @@ updateReportsDaily = async ()=> {
         throw error;
     }
 };
-updateReportsDaily();
+updateCountries = async ()=> {
+  try {
+    await countryDao.storeCountryStatistics();
+  } catch (error) {
+    console.log('error' + error);
+    throw error;
+  }
+};
+updateCountryResources = async ()=> {
+  try {
+    await countryresourceDao.storeCountryResources();
+  } catch (error) {
+    console.log('error' + error);
+    throw error;
+  }
+};
+module.exports.init = function () {
+  console.log('hi');
+};
+
+updateCountryResources();
+updateCountries();
+
