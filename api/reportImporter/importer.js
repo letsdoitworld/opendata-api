@@ -44,6 +44,4 @@ module.exports.init = function () {
   console.log('hi');
 };
 
-updateCountryResources();
-updateCountries();
-
+updateReportsDaily();
