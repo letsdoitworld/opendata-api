@@ -2,10 +2,10 @@ require('dotenv').config()
 var trashoutToken = 'a0c84fe524f970d1a404fb3ccf985f71';
 var trashoutServiceUrl = 'https://api.trashout.ngo/v1/trash/?attributesNeeded=id,gpsFull,created,types,size,' +
     'note,userInfo,url,status&limit=10000000000000';
-var trashoutConverter = require("../reportImporter/TrashoutConverter");
-var importingService = require("../reportImporter/importService");
-var countryresourceDao = require("../reportImporter/countryresourceDao");
-var countryDao = require("../reportImporter/countryDao");
+var trashoutConverter = require("./trashoutConverter");
+var importingService = require("./importService");
+var countryResourceDao = require("./countryResourceDao");
+var countryDao = require("./countryDao");
 
 const updateReports = async ()=> {
     try {
@@ -34,7 +34,7 @@ updateCountries = async ()=> {
 };
 updateCountryResources = async ()=> {
   try {
-    await countryresourceDao.storeCountryResources();
+    await countryResourceDao.storeCountryResources();
   } catch (error) {
     console.log('error' + error);
     throw error;
