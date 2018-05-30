@@ -7,7 +7,7 @@ var importingService = require("../reportImporter/importService");
 var countryresourceDao = require("../reportImporter/countryresourceDao");
 var countryDao = require("../reportImporter/countryDao");
 
-updateReports = async ()=> {
+const updateReports = async ()=> {
     try {
         await importingService.importReportsAll(trashoutServiceUrl, 'Trashout', trashoutToken, trashoutConverter);
     } catch (error) {
@@ -15,7 +15,7 @@ updateReports = async ()=> {
         throw error;
     }
 };
-updateReportsDaily = async ()=> {
+module.exports.updateReportsDaily = async ()=> {
     try {
         await importingService.importReportsDaily(trashoutServiceUrl, 'Trashout',
             trashoutToken, trashoutConverter, process.env.TRASHOUT_REQ_DELAY);
@@ -43,5 +43,3 @@ updateCountryResources = async ()=> {
 module.exports.init = function () {
   console.log('hi');
 };
-
-updateReportsDaily();
