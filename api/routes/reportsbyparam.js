@@ -8,10 +8,17 @@ const router = new Router({mergeParams: true});
 router.get('/', async (req, res) => {
     const { rows } = await query(req.query.code?req.query.code.toUpperCase():req.query.code, req.query.createdby,
         req.query.start, req.query.end, req.query.maxrec, req.query.startrecord);
+
+    if (req.query.download) {
+        //download everything as a file if asked
+        res.setHeader('Content-disposition', 'attachment; filename=opendata-export.json');
+        res.setHeader('Content-type', 'application/json');
+    }
+
     res.send({
         'trashpoints_total': rows[0].full_count,
         'trashpoints': rows
-    })
+    });
 });
 var query = (country_code, created_by, start_date , end_date, max_records, start_from_record) => {
     let q = 'select *, count(*) over() as full_count from reports';
