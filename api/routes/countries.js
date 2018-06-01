@@ -5,7 +5,7 @@ const db = require('../db');
 const router = new Router();
 
 router.get('/', async (req, res) => {
-  const query = 'select * from country_population order by country_code;'
+  const query = 'select * from country_population order by country_code order by reports_qnt desc;'
   const {rows} = await db.query(query);
   const queryResources = 'select country_code, resourcename, url from country_resource LEFT JOIN resource ON country_resource.resourcename = resource.name;'
   const resourcesResult = await db.query(queryResources);
