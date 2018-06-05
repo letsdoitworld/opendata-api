@@ -48,6 +48,21 @@
          }
        }
      },
+     "/resources": {
+       "get": {
+         "operationId": "getResourcesData",
+         "tags": ["Trash report resources"],
+         "description": "Get the list of resources",
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/resources"
+             }
+           }
+         }
+       }
+     },
      "/reportsbyparam": {
        "get": {
          "operationId": "getReportsData",
@@ -444,6 +459,23 @@
          }
        }
      },
+     "resourcesdata": {
+       "type": "object",
+       "properties": {
+         "resourceid": {
+           "type": "string",
+           "description": "Id of Resource."
+         },
+         "name": {
+           "type": "string",
+           "description": "Name of Resource."
+         },
+         "url": {
+           "type": "string",
+           "description": "Resource webpage"
+         }
+       }
+     },
      "trashpoint": {
        "type": "object",
        "properties": {
@@ -602,6 +634,24 @@
                "type": "array",
                "items": {
                  "$ref": "#/definitions/countrydata"
+               }
+             }
+           }
+         }
+       ]
+     },
+     "resources": {
+       "allOf": [
+         {
+           "$ref": "#/definitions/status"
+         },
+         {
+           "type": "object",
+           "properties" : {
+             "sources": {
+               "type": "array",
+               "items": {
+                 "$ref": "#/definitions/resourcesdata"
                }
              }
            }
