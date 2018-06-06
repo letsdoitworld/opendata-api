@@ -4,9 +4,10 @@ const db = require('../db');
 var dateformat = require('dateformat');
 
 const router = new Router({ mergeParams: true });
-
+var elem;
+var q;
 router.get('/', async (req, res) => {
-  const { rows } = await query(req.query.code ? req.query.code.toUpperCase() : req.query.code, req.query.type,
+  const { rows } = await query(req.query.code, req.query.type, req.query.status, req.query.hazardous,
     req.query.start, req.query.end, req.query.maxrec, req.query.startrecord);
 
   if (req.query.download) {
@@ -20,65 +21,38 @@ router.get('/', async (req, res) => {
     'trashpoints': rows
   });
 });
-var query = (country_code, type, start_date, end_date, max_records, start_from_record) => {
-  let q = 'select *, count(*) over() as full_count from reports';
-  let parExist = false;
-  let elem = 0;
-  let params = [country_code, type, start_date ? convertDate(start_date) : null,
-    end_date ? convertDate(end_date) : null, start_from_record, max_records];
+var query = (country_code, type, status, hazardous, start_date, end_date, max_records, start_from_record) => {
+  this.q = 'select *, count(*) over() as full_count from reports';
+  this.elem = 0;
   let newParams = [];
   if (country_code) {
-    var partsOfCountry = country_code.split(',');
-    for (let i = 0; i < partsOfCountry.length; i++) {
-      elem = elem + 1;
-      if (newParams.length>0) {
-        q = q + ' or country_code= $' + elem;
-      } else {
-        q = q + ' where (country_code= $' + elem;
-      }
-      newParams.push(partsOfCountry[i]);
-    }
-    q = q + ')';
+    addMultiplyParam(country_code.toUpperCase(), 'country_code= $', newParams);
   }
   if (type) {
-    let firstParOfSplit=true;
-    let partsOfCreated = type.split(',');
-    for (let i = 0; i < partsOfCreated.length; i++) {
-      elem = elem + 1;
-      if (newParams.length>0) {
-        q = q + (firstParOfSplit ? ' and (' : ' or') + ' type=$' + elem;
-      } else {
-        q = q + (firstParOfSplit ? ' where (' : ' or') + ' type=$' + elem;
-      }
-      newParams.push(partsOfCreated[i]);
-      firstParOfSplit=false;
-    }
-    q = q + ')';
+    addMultiplyParam(type, 'type=$', newParams);
+  }
+  if (status) {
+    addMultiplyParam(status.toUpperCase(), 'status=$', newParams);
+  }
+  if (hazardous) {
+    addSingleParam(hazardous, ' hazardous=$', newParams, false);
   }
   if (start_date) {
-    elem = elem + 1;
-    q = q + (newParams.length>0 ? ' and' : ' where') + ' last_updated>=$' + elem;
-    newParams.push(start_date);
+    addSingleParam(start_date, ' last_updated>=$', newParams, false);
   }
   if (end_date) {
-    elem = elem + 1;
-    q = q + (newParams.length>0 ? ' and' : ' where') + ' last_updated<=$' + elem;
-    newParams.push(end_date);
+    addSingleParam(end_date, ' last_updated<=$', newParams, false);
   }
-  q = q + ' order by last_updated';
+  this.q = this.q + ' order by last_updated';
   if (start_from_record) {
-    elem = elem + 1;
-    q = q + ' offset $' + elem;
-    newParams.push(start_from_record);
+    addSingleParam(start_date, ' offset $', newParams, true);
   }
   if (max_records) {
-    elem = elem + 1;
-    q = q + ' limit $' + elem;
-    newParams.push(max_records);
+    addSingleParam(start_date, ' limit $', newParams, true);
   } else {
-    q = q + ' limit 50';
+    this.q = this.q + ' limit 50';
   }
-  return db.query(q, newParams);
+  return db.query(this.q, newParams);
 };
 var convertDate = (dateString) => {
   var year = dateString.substring(0, 4);
@@ -88,5 +62,28 @@ var convertDate = (dateString) => {
 
   return mydate;
 };
-
+var addMultiplyParam = (param, paramSQL, paramArr) => {
+  let firstParOfSplit=true;
+  let partsOfParam= param.split(',');
+  for (let i = 0; i < partsOfParam.length; i++) {
+    this.elem = this.elem + 1;
+    if (paramArr.length>0) {
+      this.q = this.q + (firstParOfSplit ? ' and (' : ' or ')+paramSQL + this.elem;
+    } else {
+      this.q = this.q + (firstParOfSplit ? ' where (' : ' or ')+paramSQL + this.elem;
+    }
+    paramArr.push(partsOfParam[i]);
+    firstParOfSplit=false;
+  }
+  this.q = this.q + ')';
+}
+var addSingleParam = (param, paramSQL, paramArr, simpleAdd) => {
+  this.elem = this.elem + 1;
+  if (simpleAdd){
+    this.q = this.q + paramSQL + this.elem;
+  } else {
+    this.q = this.q + (paramArr.length>0 ? ' and' : ' where') + paramSQL + this.elem;
+  }
+  paramArr.push(param);
+}
 module.exports = router;
