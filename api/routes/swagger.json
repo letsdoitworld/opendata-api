@@ -67,10 +67,10 @@
        "get": {
          "operationId": "getReportsData",
          "tags": ["Trash reports"],
-         "description": "Get the list of trash reports with an option to use request parameters (code, createdby, start, end, startrecord, maxrec) to filter the results",
+         "description": "Get the list of trash reports with an option to use request parameters (country_code, createdby, start, end, startrecord, maxrec) to filter the results",
          "parameters": [
            {
-             "name": "code",
+             "name": "country_code",
              "in": "query",
              "description": "2-letter ISO codes of the countries",
              "type": "array",

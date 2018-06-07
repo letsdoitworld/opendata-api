@@ -7,7 +7,7 @@ const router = new Router({ mergeParams: true });
 var elem;
 var q;
 router.get('/', async (req, res) => {
-  const { rows } = await query(req.query.code, req.query.type, req.query.status, req.query.hazardous,
+  const { rows } = await query(req.query.country_code, req.query.type, req.query.status, req.query.hazardous,
     req.query.start, req.query.end, req.query.maxrec, req.query.startrecord);
 
   if (req.query.download) {
@@ -43,7 +43,7 @@ var query = (country_code, type, status, hazardous, start_date, end_date, max_re
   if (end_date) {
     addSingleParam(end_date, ' last_updated<=$', newParams, false);
   }
-  this.q = this.q + ' order by last_updated';
+  this.q = this.q + ' order by last_updated desc nulls last';
   if (start_from_record) {
     addSingleParam(start_date, ' offset $', newParams, true);
   }
@@ -52,6 +52,9 @@ var query = (country_code, type, status, hazardous, start_date, end_date, max_re
   } else {
     this.q = this.q + ' limit 50';
   }
+
+  console.log('Executing following query: ' + this.q);
+
   return db.query(this.q, newParams);
 };
 var convertDate = (dateString) => {
