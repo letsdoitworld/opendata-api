@@ -67,7 +67,7 @@
        "get": {
          "operationId": "getReportsData",
          "tags": ["Trash reports"],
-         "description": "Get the list of trash reports with an option to use request parameters (country_code, createdby, start, end, startrecord, maxrec) to filter the results",
+         "description": "Get the list of trash reports with an option to use request parameters (country_code, created_by, start_date, end_date, start_record, max_records) to filter the results",
          "parameters": [
            {
              "name": "country_code",
@@ -90,7 +90,7 @@
              }
            },
            {
-             "name": "start",
+             "name": "start_date",
              "in": "query",
              "description": "Starting from this date(when report has last update) filter the reports (UTC)",
              "type": "date",
@@ -98,7 +98,7 @@
              "maximum": 1
            },
            {
-             "name": "end",
+             "name": "end_date",
              "in": "query",
              "description": "Filter the reports until this date(when report has last update) (UTC)",
              "type": "date",
@@ -106,7 +106,7 @@
              "maximum": 1
            },
            {
-             "name": "startrecord",
+             "name": "start_record",
              "in": "query",
              "description": "Serial number of report record from which the filter result start",
              "type": "integer",
@@ -114,7 +114,7 @@
              "maximum": 1
            },
            {
-             "name": "end",
+             "name": "max_records",
              "in": "query",
              "description": "Maximum number of reports returned by request",
              "type": "integer",

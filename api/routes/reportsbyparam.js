@@ -8,7 +8,7 @@ var elem;
 var q;
 router.get('/', async (req, res) => {
   const { rows } = await query(req.query.country_code, req.query.type, req.query.status, req.query.hazardous,
-    req.query.start, req.query.end, req.query.maxrec, req.query.startrecord);
+    req.query.start_date, req.query.end_date, req.query.max_records, req.query.start_record);
 
   if (req.query.download) {
     //download everything as a file if asked
@@ -83,9 +83,9 @@ var addMultiplyParam = (param, paramSQL, paramArr) => {
 var addSingleParam = (param, paramSQL, paramArr, simpleAdd) => {
   this.elem = this.elem + 1;
   if (simpleAdd){
-    this.q = this.q + paramSQL + this.elem;
+    this.q = this.q + paramSQL.replace('$', ('$' + this.elem));
   } else {
-    this.q = this.q + (paramArr.length>0 ? ' and' : ' where') + paramSQL + this.elem;
+    this.q = this.q + (paramArr.length>0 ? ' and' : ' where') + paramSQL.replace('$', ('$' + this.elem));
   }
   paramArr.push(param);
 }
