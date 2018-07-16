@@ -45,11 +45,11 @@ var query = (country_code, type, status, hazardous, start_date, end_date, max_re
   }
   this.q = this.q + ' order by last_updated desc nulls last';
   if (start_from_record) {
-    addSingleParam(start_date, ' offset $', newParams, true);
+    addSingleParam(start_from_record, ' offset $', newParams, true);
   }
-  if (max_records) {
-    addSingleParam(start_date, ' limit $', newParams, true);
-  } else {
+  if (max_records > 0) {
+    addSingleParam(max_records, ' limit $', newParams, true);
+  } else if (max_records !== -1) {
     this.q = this.q + ' limit 50';
   }
 
