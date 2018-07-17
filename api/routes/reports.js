@@ -22,6 +22,18 @@ router.get('/', validate(validation.reports), async (req, res) => {
   });
 });
 
+router.get('/count',  async (req, res) => {
+
+  const query = 'select count(*) as reports_count from reports';
+
+  const {rows} = await db.query(query);
+
+  res.send({
+    'status': success,
+    'reports_count': rows[0].reports_count
+  });
+});
+
 const upsert_returning = 'RETURNING id, type, source_id, lat, long, ts, status';
 
 router.post('/', validate(validation.reportsPost), async (req, res) => {

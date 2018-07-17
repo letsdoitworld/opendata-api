@@ -212,6 +212,24 @@
        }
      },
 
+     "/reports/count": {
+       "get": {
+         "operationId": "count",
+         "tags": [
+           "Count all reports"
+         ],
+         "description": "Count all reports in the system",
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/reportsCount"
+             }
+           }
+         }
+       }
+     },
+
      "/reports/{platformId}" : {
       "put": {
         "operationId": "updateReportByPlatformId",
@@ -721,6 +739,19 @@
         "status": {
           "type": "string",
           "description": "Status of the trash report."
+        }
+      }
+    },
+    "reportsCount": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the trash report."
+        },
+        "reports_count": {
+          "type": "integer",
+          "description": "total number of reports in the system"
         }
       }
     },
