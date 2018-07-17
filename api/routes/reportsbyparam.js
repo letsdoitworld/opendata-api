@@ -49,7 +49,7 @@ var query = (country_code, type, status, hazardous, start_date, end_date, max_re
   }
   if (max_records > 0) {
     addSingleParam(max_records, ' limit $', newParams, true);
-  } else if (max_records !== -1) {
+  } else if (max_records !== '-1') {
     this.q = this.q + ' limit 50';
   }
 
