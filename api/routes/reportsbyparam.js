@@ -7,7 +7,7 @@ const router = new Router({ mergeParams: true });
 var elem;
 var q;
 router.get('/', async (req, res) => {
-  const { rows } = await query(req.query.country_code, req.query.type, req.query.status, req.query.hazardous,
+  const { rows } = await query(req.query.country_code, req.query.source, req.query.type, req.query.status, req.query.hazardous,
     req.query.start_date, req.query.end_date, req.query.max_records, req.query.start_record);
 
   if (req.query.download) {
@@ -17,11 +17,11 @@ router.get('/', async (req, res) => {
   }
 
   res.send({
-    'trashpoints_total': rows[0].full_count,
+    'trashpoints_total': rows && rows.length > 0 ? rows[0].full_count : 0,
     'trashpoints': rows
   });
 });
-var query = (country_code, type, status, hazardous, start_date, end_date, max_records, start_from_record) => {
+var query = (country_code, source, type, status, hazardous, start_date, end_date, max_records, start_from_record) => {
   this.q = 'select *, count(*) over() as full_count from reports';
   this.elem = 0;
   let newParams = [];
@@ -31,6 +31,11 @@ var query = (country_code, type, status, hazardous, start_date, end_date, max_re
   if (type) {
     addMultiplyParam(type, 'type=$', newParams);
   }
+
+  if (source) {
+    addMultiplyParam(source, 'source_id=$', newParams);
+  }
+
   if (status) {
     addMultiplyParam(status.toUpperCase(), 'status=$', newParams);
   }

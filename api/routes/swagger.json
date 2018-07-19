@@ -80,6 +80,16 @@
              }
            },
            {
+             "name": "source",
+             "in": "query",
+             "description": "report source possible values are: (AmericanRivers, WorldCleanupDay, ShorelineCleanup, LetsDoItRomania, Trashout, MarineLitterWatch, MarineDebrisTracker, Ocistimo, NOAA, OceanConservancy, Pirika, CleanCoastIndexSriLanka)",
+             "type": "array",
+             "collectionFormat": "multi",
+             "items": {
+               "type": "string"
+             }
+           },
+           {
              "name": "type",
              "in": "query",
              "description": "Names of the report resources",
