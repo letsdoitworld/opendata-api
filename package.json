@@ -20,6 +20,8 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-loopback": "^4.0.0",
     "eslint-plugin-import": "^2.11.0",
+    "husky": ">=1",
+    "lint-staged": ">=8",
     "mocha": "*",
     "nsp": "^2.1.0",
     "supertest": "*"
@@ -47,10 +49,21 @@
     "moment": "2.21.0",
     "node-cache": "^4.1.1",
     "pg": "^7.3.0",
-    "request": "*",
+    "request": "^2.88.0",
     "swagger-ui-express": "^2.0.4",
     "to-boolean": "^1.0.0",
     "winston": "^2.3.1",
     "winston-daily-rotate-file": "^1.4.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
