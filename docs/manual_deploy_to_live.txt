@@ -1,0 +1,5 @@
+ssh -i ldiw_azure_platform_rsa 13.93.10.197 -l proekspert
+
+scp -i /Users/aleksandr/workspace/letsdoit/ldiw-portal-rsa/ldiw_azure_platform_rsa ../opendata-api.zip  proekspert@13.93.10.197:/tmp
+ssh -i /Users/aleksandr/workspace/letsdoit/ldiw-portal-rsa/ldiw_azure_platform_rsa -l proekspert 13.93.10.197
+
