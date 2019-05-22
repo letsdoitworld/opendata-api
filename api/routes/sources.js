@@ -5,7 +5,7 @@ const db = require('../db');
 const router = new Router();
 
 router.get('/', async (req, res) => {
-  const qry = 'select r.type, r.reports, r.updated, rs.url, rs.name from (select type, count(id) as reports, max(created_at) as updated from reports group by type) r, report_sources rs where r.type = rs.type;';
+  const qry = 'select r.type, r.reports, r.updated, rs.url, rs.name from (select type, count(id) as reports, max(created_at) as updated from reports group by type) r, report_sources rs where r.type = rs.type order by 2 desc;';
   const { rows } = await db.query(qry);
   res.send({
     'status': 'SUCCESS',

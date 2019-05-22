@@ -10,7 +10,7 @@
     {
       "url": "localhost:3000",
       "description": "Local developer server"
-    }, 
+    },
     {
        "url": "opendata.letsdoitworld.org",
        "description": "Production server"
@@ -28,6 +28,105 @@
              "description": "OK",
              "schema": {
                "$ref": "#/definitions/sources"
+             }
+           }
+         }
+       }
+     },
+     "/countries": {
+       "get": {
+         "operationId": "getCountryData",
+         "tags": ["Trash report countries"],
+         "description": "Get the list of trash report countries with population, number of reports, calculated tpr index and resource names",
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/countries"
+             }
+           }
+         }
+       }
+     },
+     "/resources": {
+       "get": {
+         "operationId": "getResourcesData",
+         "tags": ["Trash report resources"],
+         "description": "Get the list of resources",
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/resources"
+             }
+           }
+         }
+       }
+     },
+     "/reportsbyparam": {
+       "get": {
+         "operationId": "getReportsData",
+         "tags": ["Trash reports"],
+         "description": "Get the list of trash reports with an option to use request parameters (country_code, created_by, start_date, end_date, start_record, max_records) to filter the results",
+         "parameters": [
+           {
+             "name": "country_code",
+             "in": "query",
+             "description": "2-letter ISO codes of the countries",
+             "type": "array",
+             "collectionFormat": "multi",
+             "items": {
+               "type": "string"
+             }
+           },
+           {
+             "name": "type",
+             "in": "query",
+             "description": "Names of the report resources",
+             "type": "array",
+             "collectionFormat": "multi",
+             "items": {
+               "type": "string"
+             }
+           },
+           {
+             "name": "start_date",
+             "in": "query",
+             "description": "Starting from this date(when report has last update) filter the reports (UTC)",
+             "type": "date",
+             "format": "yyyy-mm-dd",
+             "maximum": 1
+           },
+           {
+             "name": "end_date",
+             "in": "query",
+             "description": "Filter the reports until this date(when report has last update) (UTC)",
+             "type": "date",
+             "format": "yyyy-mm-dd",
+             "maximum": 1
+           },
+           {
+             "name": "start_record",
+             "in": "query",
+             "description": "Serial number of report record from which the filter result start",
+             "type": "integer",
+             "format": "int32",
+             "maximum": 1
+           },
+           {
+             "name": "max_records",
+             "in": "query",
+             "description": "Maximum number of reports returned by request",
+             "type": "integer",
+             "format": "int32",
+             "maximum": 1
+           }
+         ],
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/reportsbyparam"
              }
            }
          }
@@ -112,6 +211,25 @@
          }
        }
      },
+
+     "/reports/count": {
+       "get": {
+         "operationId": "count",
+         "tags": [
+           "Count all reports"
+         ],
+         "description": "Count all reports in the system",
+         "responses": {
+           "200": {
+             "description": "OK",
+             "schema": {
+               "$ref": "#/definitions/reportsCount"
+             }
+           }
+         }
+       }
+     },
+
      "/reports/{platformId}" : {
       "put": {
         "operationId": "updateReportByPlatformId",
@@ -208,9 +326,9 @@
            "401": {
             "$ref": "#/responses/401"
            }
-        }        
+        }
       }
-    }    
+    }
    },
    "responses": {
       "401": {
@@ -286,7 +404,7 @@
           "$ref": "#/definitions/reportStatus"
         }
         ]
-    },     
+    },
     "reports": {
         "allOf": [
           {
@@ -332,6 +450,178 @@
         }
       }
     },
+     "countrydata": {
+       "type": "object",
+       "properties": {
+         "country_code": {
+           "type": "string",
+           "description": " Country ISO Alpha-2 code."
+         },
+         "population": {
+           "type": "string",
+           "description": "Population of the country."
+         },
+         "reports_number": {
+           "type": "string",
+           "description": "Number of trash reports in particular country."
+         },
+         "tpr": {
+           "type": "string",
+           "description": "Trash point report index calculated for the country."
+         },
+         "resources": {
+           "type": "array",
+           "items": {
+             "$ref": "#/definitions/resourcedata"
+           }
+         }
+       }
+     },
+     "resourcesdata": {
+       "type": "object",
+       "properties": {
+         "resourceid": {
+           "type": "string",
+           "description": "Id of Resource."
+         },
+         "name": {
+           "type": "string",
+           "description": "Name of Resource."
+         },
+         "url": {
+           "type": "string",
+           "description": "Resource webpage"
+         }
+       }
+     },
+     "trashpoint": {
+       "type": "object",
+       "properties": {
+         "id": {
+           "type": "integer",
+           "description": " Trashpoint/report id number."
+         },
+         "type": {
+           "type": "string",
+           "description": "Trashpoint resorce name."
+         },
+         "lat": {
+           "type": "float",
+           "description": "Trashpoint latitude."
+         },
+         "ts_imported": {
+           "type": "date",
+           "description": "Timestamp when trashpoint was imported to opendata."
+         },
+         "source_id": {
+           "type": "string",
+           "description": "Trashpoint initial source id number."
+         },
+         "country": {
+           "type": "integer",
+           "description": " Trashpoint country."
+         },
+         "admin_area": {
+           "type": "string",
+           "description": "Trashpoint address."
+         },
+         "admin_sub_area": {
+           "type": "string",
+           "description": "Trashpoint detailed address."
+         },
+         "locality": {
+           "type": "string",
+           "description": "Trashpoint nearest location point."
+         },
+         "status": {
+           "type": "string",
+           "description": "Trashpoint current status."
+         },
+         "household": {
+           "type": "boolean",
+           "description": "Defines if trash is household type."
+         },
+         "construction": {
+           "type": "boolean",
+           "description": "Defines if trash is construction type."
+         },
+         "hazardous": {
+           "type": "boolean",
+           "description": "Defines if trash is hazardous."
+         },
+         "bulky": {
+           "type": "boolean",
+           "description": "Defines if trash is bulky."
+         },
+         "litter": {
+           "type": "boolean",
+           "description": "Defines if trash is bulky."
+         },
+         "uncategorized": {
+           "type": "boolean",
+           "description": "Defines if trash is uncategorized."
+         },
+         "glass": {
+           "type": "boolean",
+           "description": " Defines if trash is glass."
+         },
+         "plastic": {
+           "type": "boolean",
+           "description": "Defines if trash is plastic."
+         },
+         "textile": {
+           "type": "boolean",
+           "description": "Defines if trash is textile."
+         },
+         "lumber": {
+           "type": "boolean",
+           "description": "Defines if trash is lumber."
+         },
+         "metal": {
+           "type": "boolean",
+           "description": "Defines if trash is metal."
+         },
+         "rubber": {
+           "type": "boolean",
+           "description": " Defines if trash is rubber."
+         },
+         "other": {
+           "type": "boolean",
+           "description": "Defines if trash is of some other type"
+         },
+         "created_at": {
+           "type": "date",
+           "description": "Date then trashreport was created"
+         },
+         "created_by": {
+           "type": "string",
+           "description": "The way how trashreport was imported to opendata"
+         },
+         "country_code": {
+           "type": "integer",
+           "description": " Country code of trashpoint location country"
+         },
+         "last_updated": {
+           "type": "string",
+           "description": "Date when the report was updated"
+         },
+         "full_count": {
+           "type": "string",
+           "description": "Number of trash reports filtered by query."
+         }
+
+       }
+     },
+
+     "resourcedata": {
+       "type": "object",
+       "properties": {
+         "resource_name": {
+           "type": "string",
+           "description": " Name of the resource."
+         }
+       }
+     },
     "sources": {
         "allOf": [
           {
@@ -350,6 +640,60 @@
          }
        ]
     },
+     "countries": {
+       "allOf": [
+         {
+           "$ref": "#/definitions/status"
+         },
+         {
+           "type": "object",
+           "properties" : {
+             "sources": {
+               "type": "array",
+               "items": {
+                 "$ref": "#/definitions/countrydata"
+               }
+             }
+           }
+         }
+       ]
+     },
+     "resources": {
+       "allOf": [
+         {
+           "$ref": "#/definitions/status"
+         },
+         {
+           "type": "object",
+           "properties" : {
+             "sources": {
+               "type": "array",
+               "items": {
+                 "$ref": "#/definitions/resourcesdata"
+               }
+             }
+           }
+         }
+       ]
+     },
+     "reportsbyparam": {
+       "allOf": [
+         {
+           "trashpoints_total": "#/definitions/trashpoints_total"
+         },
+         {
+           "type": "object",
+           "properties" : {
+             "sources": {
+               "type": "array",
+               "items": {
+                 "$ref": "#/definitions/trashpoint"
+               }
+             }
+           }
+         }
+       ]
+     },
     "credentials": {
       "type": "object",
       "properties": {
@@ -398,6 +742,19 @@
         }
       }
     },
+    "reportsCount": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status of the trash report."
+        },
+        "reports_count": {
+          "type": "integer",
+          "description": "total number of reports in the system"
+        }
+      }
+    },
     "reportCoords": {
       "type": "object",
       "properties": {
@@ -431,6 +788,15 @@
           "description": "Status of the operation"
         }
       }
-    } 
+    },
+     "trashpoints_total": {
+       "type": "object",
+       "properties": {
+         "status": {
+           "type": "integer",
+           "description": "Total number of returned trashpoints/reports"
+         }
+       }
+     }
   }
 }
