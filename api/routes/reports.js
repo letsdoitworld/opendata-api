@@ -34,7 +34,7 @@ router.get('/count',  async (req, res) => {
   });
 });
 
-const upsert_returning = 'RETURNING id, type, source_id, lat, long, ts, status';
+const upsert_returning = 'RETURNING id, type, source_id, lat, long, ts_imported, status';
 
 router.post('/', validate(validation.reportsPost), async (req, res) => {
   
@@ -101,7 +101,7 @@ var query = (pageSize, offset, countries, source) => {
     source = Array.of(source.toLowerCase());
   }
 
-  let q = 'SELECT id, type as source, country_code, country, lat, long, ts, status FROM reports ';
+  let q = 'SELECT id, type as source, country_code, country, lat, long, ts_imported, status FROM reports ';
   let params = [];
 
   if (countries.length && !source.length) {
