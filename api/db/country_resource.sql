@@ -1,13 +1,641 @@
-drop table if EXISTS country_resource;
+--
+-- PostgreSQL database dump
+--
 
-create table country_resource (
-  country_code VARCHAR(2) NOT NULL,
-  resourceName VARCHAR(50) NOT NULL,
-   CONSTRAINT PK_countryResource PRIMARY KEY
-    (
-        country_code,
-        resourceName
-    ),
-    FOREIGN KEY (country_code) REFERENCES country_population (country_code),
-    FOREIGN KEY (resourceName) REFERENCES resource (name)
+-- Dumped from database version 9.6.16
+-- Dumped by pg_dump version 12.3
+
+-- Started on 2020-06-01 13:03:06
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 198 (class 1259 OID 445006)
+-- Name: country_resource; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.country_resource (
+    country_code character varying(2) NOT NULL,
+    resourcename character varying(50) NOT NULL
 );
+
+
+--
+-- TOC entry 2661 (class 0 OID 445006)
+-- Dependencies: 198
+-- Data for Name: country_resource; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.country_resource VALUES ('CK', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PE', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('SE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('JO', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IT', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('CN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('WS', 'Trashout');
+INSERT INTO public.country_resource VALUES ('ET', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('UA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CA', 'NOAA');
+INSERT INTO public.country_resource VALUES ('TL', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SI', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('TW', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PT', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NO', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('NG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('IR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('EC', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('GB', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IL', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('RE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('DM', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('TH', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KH', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('VN', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('LB', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('NZ', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('RS', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('FJ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('CV', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SV', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MM', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('NA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CI', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IN', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('RO', 'LetsDoItRomania');
+INSERT INTO public.country_resource VALUES ('KR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('RW', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('RU', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('BG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MK', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('MT', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('MU', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MM', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('BG', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('VN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('RU', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CL', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('FJ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MU', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('QA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('CU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NP', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('CR', 'NOAA');
+INSERT INTO public.country_resource VALUES ('SI', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TW', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TL', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BO', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('PT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('TH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('EC', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('GB', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IL', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('ZA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('LS', 'Trashout');
+INSERT INTO public.country_resource VALUES ('UA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('GY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('HU', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BB', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SB', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MS', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MV', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CH', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('GN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('UY', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BD', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BN', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CL', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('VN', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CO', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('HK', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CU', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CH', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TH', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('SK', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('EC', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('GB', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('KE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IL', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('NO', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('HT', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('TW', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ZM', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('ES', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('TR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('BB', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('SK', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GD', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SE', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('BJ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IE', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('US', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('MD', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('RO', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('TZ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('AE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('DM', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PT', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('TL', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ZW', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('IE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('US', 'NOAA');
+INSERT INTO public.country_resource VALUES ('NO', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GH', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('CO', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('NL', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('DE', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('TJ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AZ', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('CL', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('GR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AF', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('NZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BD', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('DE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('JP', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MK', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MV', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('GR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('LT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('PH', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('DO', 'Trashout');
+INSERT INTO public.country_resource VALUES ('KW', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MX', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('FR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ES', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('ID', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MN', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('VC', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('KE', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('SI', 'Ocistimo');
+INSERT INTO public.country_resource VALUES ('CZ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('HT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('EE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PL', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AL', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('IS', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('ES', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BG', 'LetsDoItRomania');
+INSERT INTO public.country_resource VALUES ('DK', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MY', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('HR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TC', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CH', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('BY', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('VE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KG', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('HR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('GE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MW', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('GM', 'Trashout');
+INSERT INTO public.country_resource VALUES ('DE', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('YE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NL', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('BE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AU', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('VE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NI', 'Trashout');
+INSERT INTO public.country_resource VALUES ('KG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AM', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('LT', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('LK', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NL', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GH', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GP', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PY', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MZ', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('KY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SG', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('GR', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('EE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PL', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IS', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('RO', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MG', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('SN', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('ZW', 'Trashout');
+INSERT INTO public.country_resource VALUES ('RO', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('ID', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('US', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TD', 'Trashout');
+INSERT INTO public.country_resource VALUES ('ST', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('MX', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BA', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('NA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('SV', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('TN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KR', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('MA', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('KN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('EG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LB', 'Trashout');
+INSERT INTO public.country_resource VALUES ('FI', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('UZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MY', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('JE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('KZ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NG', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('PK', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IT', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('BR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('CA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('VU', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IQ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('FR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MX', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('IT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CN', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('PH', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CY', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('FR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('DZ', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('VU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('OM', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('ID', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('PK', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SN', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ZA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('JM', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AL', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('HN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('KZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PL', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('DZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SG', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('FI', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NP', 'Trashout');
+INSERT INTO public.country_resource VALUES ('ME', 'Trashout');
+INSERT INTO public.country_resource VALUES ('UG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('LA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AU', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('BE', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('LV', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LC', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MU', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('SD', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('UA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NG', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TW', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SI', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TH', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GB', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IL', 'Trashout');
+INSERT INTO public.country_resource VALUES ('KE', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('EC', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TM', 'Trashout');
+INSERT INTO public.country_resource VALUES ('VG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('UA', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('JP', 'Pirika');
+INSERT INTO public.country_resource VALUES ('FR', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('GB', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('IL', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('HU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BB', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SI', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('CN', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PH', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('NA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CI', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SV', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MM', 'Trashout');
+INSERT INTO public.country_resource VALUES ('RS', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('LA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('BS', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('KH', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MT', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('CH', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('HR', 'Ocistimo');
+INSERT INTO public.country_resource VALUES ('VN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('RU', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MY', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('RS', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('RU', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('FJ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BS', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BG', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('LV', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('SV', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MU', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('JP', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('DE', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('NA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('CY', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('HU', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('US', 'AmericanRivers');
+INSERT INTO public.country_resource VALUES ('GI', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('PT', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('CN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('WS', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BO', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PK', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('PT', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('FO', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AE', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CA', 'ShorelineCleanup');
+INSERT INTO public.country_resource VALUES ('BR', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('SE', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('AR', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('UY', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('GR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CH', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MV', 'Trashout');
+INSERT INTO public.country_resource VALUES ('KR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('BS', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('DE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('JP', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MW', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CI', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('SY', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IT', 'Ocistimo');
+INSERT INTO public.country_resource VALUES ('NO', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('MX', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('ST', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MN', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MX', 'NOAA');
+INSERT INTO public.country_resource VALUES ('KE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CZ', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('AE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('GT', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NO', 'Trashout');
+INSERT INTO public.country_resource VALUES ('ZM', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AT', 'Ocistimo');
+INSERT INTO public.country_resource VALUES ('EE', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('PL', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('TZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('KE', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('VG', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ID', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('GD', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BJ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('ST', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SK', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MW', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('DE', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('JP', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('KI', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('LK', 'CleanCoastIndexSriLanka');
+INSERT INTO public.country_resource VALUES ('CL', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('BE', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('MK', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CO', 'Trashout');
+INSERT INTO public.country_resource VALUES ('PW', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MT', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MZ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('UY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BD', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CL', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SG', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('GR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NO', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('HT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SC', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('ES', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('RO', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('US', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('DO', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MX', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IT', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CA', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('BM', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('VE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('NI', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('KG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('MA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LK', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IN', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('HR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PY', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MA', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('AZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NL', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('GH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BY', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('GH', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('NL', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('DK', 'Trashout');
+INSERT INTO public.country_resource VALUES ('HR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BE', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('CL', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('AZ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('SG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AF', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BD', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('CR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('LC', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('AU', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LK', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AM', 'Trashout');
+INSERT INTO public.country_resource VALUES ('DK', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('SO', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('ID', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BJ', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('VC', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('EE', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('DO', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('HU', 'Ocistimo');
+INSERT INTO public.country_resource VALUES ('TO', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('KW', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('US', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MG', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('EE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('PL', 'Trashout');
+INSERT INTO public.country_resource VALUES ('RO', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('TZ', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('ES', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('MG', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TT', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ZA', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ZW', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('CM', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('VN', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('LB', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MY', 'Trashout');
+INSERT INTO public.country_resource VALUES ('HR', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('CR', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('LC', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('SL', 'Trashout');
+INSERT INTO public.country_resource VALUES ('LA', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IN', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('MD', 'LetsDoItRomania');
+INSERT INTO public.country_resource VALUES ('CA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('BH', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('IQ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('IT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('FR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('PH', 'Trashout');
+INSERT INTO public.country_resource VALUES ('AL', 'Trashout');
+INSERT INTO public.country_resource VALUES ('HN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AT', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('ES', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('KZ', 'Trashout');
+INSERT INTO public.country_resource VALUES ('UA', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('DZ', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('TW', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('NE', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AG', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('ZA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('IL', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('GB', 'WorldCleanupDay');
+INSERT INTO public.country_resource VALUES ('TT', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('FR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('JM', 'Trashout');
+INSERT INTO public.country_resource VALUES ('SA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('PK', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('ZA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('HN', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('DZ', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('AR', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CY', 'Trashout');
+INSERT INTO public.country_resource VALUES ('BR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('IT', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BT', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('US', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('LY', 'Trashout');
+INSERT INTO public.country_resource VALUES ('CA', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('AR', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('IM', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BH', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('RW', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('PF', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('IN', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('BM', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('FI', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('CR', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('LV', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TN', 'Trashout');
+INSERT INTO public.country_resource VALUES ('GA', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('FI', 'Trashout');
+INSERT INTO public.country_resource VALUES ('TN', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('EG', 'OceanConservancy');
+INSERT INTO public.country_resource VALUES ('NP', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('NL', 'MarineDebrisTracker');
+INSERT INTO public.country_resource VALUES ('LV', 'MarineLitterWatch');
+INSERT INTO public.country_resource VALUES ('UG', 'WorldCleanupApp');
+INSERT INTO public.country_resource VALUES ('ME', 'WorldCleanupApp');
+
+
+--
+-- TOC entry 2539 (class 2606 OID 445010)
+-- Name: country_resource pk_countryresource; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.country_resource
+    ADD CONSTRAINT pk_countryresource PRIMARY KEY (country_code, resourcename);
+
+
+--
+-- TOC entry 2540 (class 2606 OID 445011)
+-- Name: country_resource country_resource_country_code_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.country_resource
+    ADD CONSTRAINT country_resource_country_code_fkey FOREIGN KEY (country_code) REFERENCES public.country_population(country_code);
+
+
+--
+-- TOC entry 2541 (class 2606 OID 445016)
+-- Name: country_resource country_resource_resourcename_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.country_resource
+    ADD CONSTRAINT country_resource_resourcename_fkey FOREIGN KEY (resourcename) REFERENCES public.resource(name);
+
+
+-- Completed on 2020-06-01 13:03:18
+
+--
+-- PostgreSQL database dump complete
+--
+

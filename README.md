@@ -7,9 +7,17 @@
 2. Create `.env` file in project root directory with parameters explained in [.env configuration](#env)
 or, you can check out example file `.env.example`
 3. [PostgreSQL database](https://www.postgresql.org/).
+    - Create database named  `Trash`
     - Run following `.sql` files
-        - `api/db/users.sql`
         - `api/db/brute.sql`
+        - `api/db/country_population.sql`
+        - `api/db/country_resource.sql`
+        - `api/db/location_cache.sql`
+        - `api/db/report_sources.sql`
+        - `api/db/reports.sql`
+        - `api/db/resource.sql`
+        - `api/db/users.sql`
+    - To import demo data from csv, follow [api/db/import_data_from_csv.sql](/api/db/import_data_from_csv.sql). 
 
 ## <a name="env"></a>.env configuration
 
